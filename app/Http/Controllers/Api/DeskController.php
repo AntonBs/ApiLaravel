@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DeskStoreRequest;
 use App\Http\Resources\DeskResource;
 use App\Models\Desk;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class DeskController extends Controller
 {
@@ -25,9 +27,10 @@ class DeskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DeskStoreRequest $request)
     {
-        //
+        $created_desk = Desk::create($request->validate());
+        return new DeskResource($created_desk);
     }
 
     /**
